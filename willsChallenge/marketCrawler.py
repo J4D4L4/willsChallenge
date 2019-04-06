@@ -49,3 +49,32 @@ class bitrexCrawler(crawler):
     def getRequest(self,url):
         requestData=json.loads(requests.get(url).text)
         return requestData
+    def getMarketValResult(self, bitrexRequestJson):
+        result = bitrexRequestJson["result"]
+        returnVal = result["Last"]
+        return returnVal
+    def getCurrentVal(self,symbol):
+        currentSymbolVal = bitrexCrawler.getMarketValResult(self, bitrexCrawler.getRequest(self, bitrexCrawler.getRequestData(self, symbol)))
+        return currentSymbolVal
+
+class bitstampCrawler(crawler):
+
+    def getRequestData(self, type):
+        requests = {
+            'btc': 'https://www.bitstamp.net/api/v2/ticker/btcusd/',
+            'eth': 'https://www.bitstamp.net/api/v2/ticker/ethusd/'
+        }
+        return requests[type]
+
+    def getRequest(self,url):
+        requestData=json.loads(requests.get(url).text)
+        return requestData
+
+    def getMarketValResult(self, bitrexRequestJson):
+        result = bitrexRequestJson
+        returnVal = result["last"]
+        return returnVal
+
+    def getCurrentVal(self,symbol):
+        currentSymbolVal = bitstampCrawler.getMarketValResult(self, bitstampCrawler.getRequest(self, bitstampCrawler.getRequestData(self, symbol)))
+        return currentSymbolVal

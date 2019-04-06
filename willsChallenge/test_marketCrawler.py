@@ -24,7 +24,7 @@ class TestKrakenMarketCrawler(unittest.TestCase):
         result = marketCrawler.krakenCrawler.getRequest(self, marketCrawler.krakenCrawler.getRequestData(self, "eth"))
         self.assertIsNotNone(result['result'])
 
-    def test_getKrakenMarketValResult(self):
+    def test_getMarketValResult(self):
         request = marketCrawler.krakenCrawler.getRequest(self, marketCrawler.krakenCrawler.getRequestData(self, "eth"))
         result = marketCrawler.krakenCrawler.getMarketValResult(self, request)
         self.assertIsNotNone(result)
@@ -46,6 +46,36 @@ class TestBittrexMarketCrawler(unittest.TestCase):
         result = marketCrawler.bitrexCrawler.getRequest(self, marketCrawler.bitrexCrawler.getRequestData(self, "eth"))
         self.assertIsNotNone(result['result'])
 
+    def test_getMarketValResult(self):
+        request = marketCrawler.bitrexCrawler.getRequest(self, marketCrawler.bitrexCrawler.getRequestData(self, "eth"))
+        result = marketCrawler.bitrexCrawler.getMarketValResult(self, request)
+        self.assertIsNotNone(result)
+    def test_getCurrentVal(self):
+        resultEth = marketCrawler.bitrexCrawler.getCurrentVal(self, "eth")
+        resultBtc = marketCrawler.bitrexCrawler.getCurrentVal(self, "btc")
+        self.assertIsNotNone(resultBtc)
+        self.assertIsNotNone(resultEth)
 
+class TestBitstampMarketCrawler(unittest.TestCase):
+    def test_getReqeuestData(self):
+        resultBTC=marketCrawler.bitstampCrawler.getRequestData(self, "btc")
+        self.assertEqual(resultBTC,'https://www.bitstamp.net/api/v2/ticker/btcusd/')
+        resultETH=marketCrawler.bitstampCrawler.getRequestData(self, "eth")
+        self.assertEqual(resultETH,'https://www.bitstamp.net/api/v2/ticker/ethusd/')
+
+    def test_getRequest(self):
+        result = marketCrawler.bitstampCrawler.getRequest(self,marketCrawler.bitstampCrawler.getRequestData(self, "eth"))
+        self.assertIsNotNone(result)
+
+    def test_getMarketValResult(self):
+        request = marketCrawler.bitstampCrawler.getRequest(self, marketCrawler.bitstampCrawler.getRequestData(self, "eth"))
+        result = marketCrawler.bitstampCrawler.getMarketValResult(self, request)
+        self.assertIsNotNone(result)
+
+    def test_getCurrentVal(self):
+        resultEth = marketCrawler.bitstampCrawler.getCurrentVal(self, "eth")
+        resultBtc = marketCrawler.bitstampCrawler.getCurrentVal(self, "btc")
+        self.assertIsNotNone(resultBtc)
+        self.assertIsNotNone(resultEth)
 
 
